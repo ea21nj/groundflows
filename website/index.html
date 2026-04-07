@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GroundFlows — Less Admin. More Jobs Done.</title>
+  <meta name="description" content="GroundFlows helps landscaping contractors get scheduling, job tracking, and crew management out of texts and spreadsheets. Fixed-price packages. Live in 2–6 weeks." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --text-primary:   #1a1a1a;
+      --text-secondary: #555;
+      --text-light:     #999;
+      --text-mid:       #666;
+      --green:          #2D8653;
+      --green-hover:    #236B42;
+      --bg-white:       #ffffff;
+      --bg-sage:        #F0F8F2;
+      --bg-sage-light:  #F7FAF7;
+      --border:         #e5e5e5;
+      --font:           'Inter', sans-serif;
+      --ease:           cubic-bezier(0.4, 0, 0.2, 1);
+      --max:            1140px;
+      --gutter:         clamp(24px, 5vw, 48px);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font); font-size: 17px; font-weight: 400; color: var(--text-primary); background: var(--bg-white); -webkit-font-smoothing: antialiased; overflow-x: hidden; line-height: 1.6; }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.55s var(--ease), transform 0.55s var(--ease); }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.08s; }
+    .reveal-d2 { transition-delay: 0.16s; }
+    .reveal-d3 { transition-delay: 0.24s; }
+    .reveal-d4 { transition-delay: 0.32s; }
+    .reveal-d5 { transition-delay: 0.40s; }
+
+    /* UTILITIES */
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--font); font-size: 16px; font-weight: 700;
+      padding: 18px 48px; border-radius: 6px; cursor: pointer;
+      text-decoration: none; border: 2px solid transparent;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease);
+      white-space: nowrap;
+    }
+    .btn-primary { background: var(--green); color: #fff; }
+    .btn-primary:hover { background: var(--green-hover); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(45,134,83,0.28); }
+    .btn-secondary { background: transparent; color: var(--text-primary); border-color: var(--border); }
+    .btn-secondary:hover { border-color: var(--green); background: var(--bg-sage); color: var(--green); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 68px; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter);
+    }
+    .logo {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--text-primary); text-decoration: none;
+    }
+    .logo span { color: var(--green); }
+    .nav-links { display: none; align-items: center; gap: 32px; list-style: none; }
+    @media (min-width: 768px) { .nav-links { display: flex; } }
+    .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: color 0.3s var(--ease); }
+    .nav-links a:hover { color: var(--text-primary); }
+    .nav-cta { display: flex; align-items: center; gap: 16px; }
+    .nav-email { font-size: 13px; color: var(--text-light); text-decoration: none; display: none; }
+    @media (min-width: 900px) { .nav-email { display: block; } }
+    .btn-nav { padding: 10px 22px; font-size: 14px; border-radius: 6px; }
+
+    /* HERO */
+    .hero {
+      padding: 120px var(--gutter);
+      background: var(--bg-white);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: var(--border);
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 13px; font-weight: 600; color: var(--green);
+      background: var(--bg-sage); border: 1px solid rgba(45,134,83,0.2);
+      padding: 6px 14px; border-radius: 100px;
+      margin-bottom: 32px;
+      opacity: 0; animation: fadeUp 0.5s var(--ease) 0.1s forwards;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+    .hero h1 {
+      font-size: clamp(40px, 6.5vw, 64px);
+      font-weight: 700; letter-spacing: -0.5px; line-height: 1.1;
+      color: var(--text-primary); max-width: 780px; margin: 0 auto 24px;
+      opacity: 0; animation: fadeUp 0.6s var(--ease) 0.2s forwards;
+    }
+    .hero h1 span { color: var(--green); }
+    .hero-sub {
+      font-size: 20px; font-weight: 400; color: var(--text-secondary);
+      max-width: 580px; margin: 0 auto 48px; line-height: 1.6;
+      opacity: 0; animation: fadeUp 0.6s var(--ease) 0.35s forwards;
+    }
+    .hero-ctas {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 24px;
+      opacity: 0; animation: fadeUp 0.6s var(--ease) 0.5s forwards;
+    }
+    .hero-note {
+      margin-top: 24px; font-size: 13px; color: var(--text-light);
+      opacity: 0; animation: fadeUp 0.5s var(--ease) 0.65s forwards;
+    }
+
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+
+    /* SECTION BASE */
+    .section { padding: 120px var(--gutter) 140px; }
+    .section-alt { background: var(--bg-sage-light); }
+    .section-sage { background: var(--bg-sage); }
+    .section-bordered { border-top: 1px solid var(--border); }
+
+    .section-tag {
+      font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 12px;
+    }
+    .section-title { font-size: 32px; font-weight: 700; color: var(--text-primary); line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.3px; }
+    .section-sub { font-size: 17px; color: var(--text-secondary); line-height: 1.65; max-width: 520px; }
+
+    /* PAIN */
+    .pain-grid {
+      display: grid; grid-template-columns: 1fr;
+      gap: 64px; max-width: var(--max); margin: 0 auto;
+    }
+    @media (min-width: 900px) { .pain-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
+    .pain-list { list-style: none; display: flex; flex-direction: column; margin-top: 8px; }
+    .pain-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 18px 0; border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .pain-item:first-child { border-top: 1px solid var(--border); }
+    .pain-x {
+      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+      background: #FEE8E8; display: flex; align-items: center; justify-content: center;
+      margin-top: 2px;
+    }
+    .pain-x svg { color: #D92D20; }
+    .pain-item p { font-size: 15px; color: var(--text-secondary); line-height: 1.55; }
+
+    /* STATS */
+    .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stat-card {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: 10px; padding: 28px 24px;
+      transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
+    }
+    .stat-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(45,134,83,0.1); }
+    .stat-num { font-size: 42px; font-weight: 700; color: var(--text-primary); line-height: 1; margin-bottom: 6px; letter-spacing: -1px; }
+    .stat-num span { color: var(--green); }
+    .stat-label { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
+
+    /* HOW IT WORKS */
+    .steps-header { max-width: var(--max); margin: 0 auto 56px; }
+    .steps-grid {
+      max-width: var(--max); margin: 0 auto;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 32px; position: relative;
+    }
+    .steps-grid::before {
+      content: ''; position: absolute;
+      top: 20px; left: 10%; right: 10%; height: 1px;
+      background: var(--border);
+    }
+    @media (max-width: 767px) { .steps-grid::before { display: none; } }
+    .step { position: relative; }
+    .step-num {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--bg-white); border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700; color: var(--text-light);
+      margin-bottom: 20px; position: relative; z-index: 1;
+      transition: all 0.3s var(--ease);
+    }
+    .step:hover .step-num { border-color: var(--green); color: var(--green); background: var(--bg-sage); }
+    .step-badge {
+      display: inline-block; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--green); background: var(--bg-sage);
+      padding: 3px 8px; border-radius: 4px; margin-bottom: 10px;
+    }
+    .step-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
+    .step p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+
+    /* PACKAGES */
+    .packages-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px; max-width: var(--max); margin: 56px auto 0; align-items: start;
+    }
+    .pkg-card {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 36px; position: relative;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+    }
+    .pkg-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); }
+    .pkg-card.featured {
+      border-color: var(--green);
+      box-shadow: 0 0 0 1px var(--green), 0 16px 40px rgba(45,134,83,0.1);
+    }
+    .pkg-popular {
+      position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
+      background: var(--green); color: #fff; font-size: 11px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 14px;
+      border-radius: 100px; white-space: nowrap;
+    }
+    .pkg-tier { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 6px; }
+    .pkg-name { font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; }
+    .pkg-timeline {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 13px; font-weight: 600; color: var(--green); margin-bottom: 24px;
+    }
+    .pkg-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
+    .pkg-best { font-size: 13px; color: var(--text-secondary); font-style: italic; margin-bottom: 20px; }
+    .pkg-features { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 32px; }
+    .pkg-features li {
+      display: flex; align-items: flex-start; gap: 10px;
+      font-size: 14px; color: var(--text-secondary); line-height: 1.45;
+    }
+    .pkg-features li::before {
+      content: ''; flex-shrink: 0; width: 16px; height: 16px; margin-top: 2px;
+      background: var(--bg-sage); border-radius: 50%; border: 1.5px solid rgba(45,134,83,0.4);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='%232D8653' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    }
+    .pkg-btn { display: block; width: 100%; text-align: center; padding: 14px; border-radius: 6px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all 0.3s var(--ease); cursor: pointer; }
+    .pkg-btn-primary { background: var(--green); color: #fff; border: none; }
+    .pkg-btn-primary:hover { background: var(--green-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(45,134,83,0.25); }
+    .pkg-btn-outline { border: 1.5px solid var(--border); color: var(--text-primary); background: transparent; }
+    .pkg-btn-outline:hover { border-color: var(--green); color: var(--green); background: var(--bg-sage); transform: translateY(-2px); }
+
+    /* TRADES */
+    .trades-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: var(--max); margin: 48px auto 0; }
+    .trade-card {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: 12px; overflow: hidden;
+      transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+      cursor: pointer;
+    }
+    .trade-card:hover { border-color: var(--green); box-shadow: 0 12px 32px rgba(45,134,83,0.08); }
+    .trade-card.open { border-color: var(--green); box-shadow: 0 12px 32px rgba(45,134,83,0.08); }
+    .trade-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 28px; gap: 12px;
+    }
+    .trade-chevron {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      border: 1.5px solid var(--border); display: flex; align-items: center;
+      justify-content: center; color: var(--text-light);
+      transition: all 0.3s var(--ease);
+    }
+    .trade-card.open .trade-chevron { border-color: var(--green); color: var(--green); background: var(--bg-sage); transform: rotate(180deg); }
+    .trade-body {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.35s var(--ease), padding 0.35s var(--ease);
+      padding: 0 28px;
+    }
+    .trade-card.open .trade-body { max-height: 300px; padding: 0 28px 28px; }
+    .trade-name { font-size: 20px; font-weight: 700; color: var(--text-primary); }
+    .trade-sub { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; line-height: 1.5; }
+    .trade-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .tag {
+      font-size: 12px; font-weight: 500; color: var(--text-secondary);
+      background: var(--bg-sage-light); border: 1px solid var(--border);
+      padding: 4px 10px; border-radius: 100px;
+    }
+
+    /* FAQ */
+    .faq-wrap { max-width: 680px; margin: 0 auto; }
+    .faq-header { margin-bottom: 48px; }
+    .faq-item { border-bottom: 1px solid var(--border); }
+    .faq-item:first-of-type { border-top: 1px solid var(--border); }
+    .faq-q {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      gap: 16px; padding: 22px 0; background: none; border: none; cursor: pointer;
+      text-align: left; font-family: var(--font); font-size: 16px; font-weight: 600;
+      color: var(--text-primary); transition: color 0.3s var(--ease);
+    }
+    .faq-q:hover { color: var(--green); }
+    .faq-icon {
+      flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
+      border: 1.5px solid var(--border); display: flex; align-items: center;
+      justify-content: center; color: var(--text-light); transition: all 0.3s var(--ease);
+    }
+    .faq-item.open .faq-icon { border-color: var(--green); color: var(--green); background: var(--bg-sage); transform: rotate(45deg); }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s var(--ease), padding 0.35s var(--ease); }
+    .faq-item.open .faq-a { max-height: 300px; padding-bottom: 20px; }
+    .faq-a p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
+
+    /* APPROACH */
+    .approach-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      max-width: var(--max);
+      margin: 56px auto 0;
+    }
+    .approach-card {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 36px;
+      display: flex; flex-direction: column;
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
+    }
+    .approach-card:hover { transform: translateY(-3px); border-color: var(--green); box-shadow: 0 12px 32px rgba(45,134,83,0.08); }
+    .approach-num {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--green);
+      margin-bottom: 16px;
+    }
+    .approach-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; line-height: 1.3; }
+    .approach-body { font-size: 15px; color: var(--text-secondary); line-height: 1.65; flex: 1; margin-bottom: 28px; }
+    .approach-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 14px; font-weight: 700; color: var(--green);
+      text-decoration: none; transition: gap 0.25s var(--ease);
+    }
+    .approach-link:hover { gap: 10px; }
+
+    /* DRAWER */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      justify-content: flex-end;
+    }
+    .modal-overlay.active { display: flex; }
+    .drawer-backdrop {
+      position: absolute; inset: 0;
+      background: rgba(0,0,0,0.25); backdrop-filter: blur(3px);
+    }
+    .modal {
+      width: 440px; height: 100%;
+      background: var(--bg-white);
+      overflow: hidden; position: relative; z-index: 1;
+      box-shadow: -12px 0 48px rgba(0,0,0,0.14);
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform 0.4s var(--ease);
+    }
+    .modal-overlay.active .modal { transform: translateX(0); }
+    .drawer-right-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 24px; flex-shrink: 0;
+      background: var(--bg-sage); border-bottom: 1px solid rgba(45,134,83,0.12);
+    }
+    .drawer-right-header-left { display: flex; flex-direction: column; gap: 2px; }
+    .drawer-right-header span { font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; }
+    .drawer-right-header strong { font-size: 16px; font-weight: 700; color: var(--text-primary); }
+    .modal-close {
+      width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(0,0,0,0.1);
+      background: var(--bg-white); cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--text-secondary); transition: all 0.2s var(--ease); flex-shrink: 0;
+    }
+    .modal-close:hover { border-color: var(--text-primary); color: var(--text-primary); }
+    .modal-body { padding: 0; flex: 1; overflow-y: auto; }
+
+    /* TERMS STRIP */
+    .terms-strip {
+      background: var(--bg-sage-light); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 24px var(--gutter);
+    }
+    .terms-inner {
+      max-width: var(--max); margin: 0 auto;
+      display: flex; flex-wrap: wrap; justify-content: center;
+      gap: 32px;
+    }
+    .term-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); }
+    .term-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+    /* CTA */
+    .cta-section { background: var(--bg-sage); padding: 120px var(--gutter) 140px; text-align: center; border-top: 1px solid rgba(45,134,83,0.15); }
+    .cta-inner { max-width: 580px; margin: 0 auto; }
+    .cta-title { font-size: clamp(32px, 5vw, 48px); font-weight: 700; color: var(--text-primary); line-height: 1.15; margin-bottom: 20px; letter-spacing: -0.5px; }
+    .cta-title span { color: var(--green); }
+    .cta-sub { font-size: 18px; color: var(--text-secondary); margin-bottom: 40px; line-height: 1.6; }
+    .cta-note { margin-top: 20px; font-size: 13px; color: var(--text-light); }
+    .cta-note a { color: var(--green); text-decoration: none; }
+
+    /* FOOTER */
+    footer { background: var(--bg-white); border-top: 1px solid var(--border); padding: 36px var(--gutter); }
+    .footer-inner { max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .footer-logo { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-primary); text-decoration: none; }
+    .footer-logo span { color: var(--green); }
+    .footer-links { display: flex; gap: 28px; list-style: none; }
+    .footer-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.3s var(--ease); }
+    .footer-links a:hover { color: var(--text-primary); }
+    .footer-right { font-size: 13px; color: var(--text-light); }
+
+    /* DIVIDER */
+    .divider { height: 1px; background: var(--border); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">Ground<span>Flows</span></a>
+    <ul class="nav-links">
+      <li><a href="#approach">Our Approach</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#packages">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="mailto:hello@groundflows.com" class="nav-email">hello@groundflows.com</a>
+      <a href="#" onclick="openModal(event)" class="btn btn-primary btn-nav">Get the Free Guide</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">For landscaping contractors doing $1&ndash;10M where growth is breaking the process.</div>
+  <h1>Stop losing crews to<br/><span>bad systems.</span></h1>
+  <p class="hero-sub">GroundFlows gets your scheduling, job tracking, and crew management out of texts and spreadsheets into a system that actually works. Fixed price. Live in 2&ndash;6&nbsp;weeks.</p>
+  <div class="hero-ctas">
+    <a href="#" onclick="openModal(event)" class="btn btn-primary">Get the Free Guide</a>
+    <a href="#packages" class="btn btn-secondary">See Packages</a>
+  </div>
+  <p class="hero-note">No pitch. No pressure. We'll tell you what you need before you commit.</p>
+</section>
+
+<!-- TERMS STRIP -->
+<div class="terms-strip">
+  <div class="terms-inner">
+    <div class="term-item"><div class="term-dot"></div>Fixed-price packages</div>
+    <div class="term-item"><div class="term-dot"></div>Live in 2&ndash;6 weeks</div>
+    <div class="term-item"><div class="term-dot"></div>You own everything we build</div>
+    <div class="term-item"><div class="term-dot"></div>Landscaping &amp; grounds contractors</div>
+    <div class="term-item"><div class="term-dot"></div>Free discovery call</div>
+  </div>
+</div>
+
+<!-- OUR APPROACH -->
+<section class="section section-alt section-bordered" id="approach">
+  <div class="wrap">
+    <div style="max-width:var(--max);margin:0 auto;">
+      <div class="section-tag reveal">Our Approach &amp; Services</div>
+      <h2 class="section-title reveal reveal-d1">Stop managing crews from your phone.</h2>
+      <p class="section-sub reveal reveal-d2" style="margin-top:12px;">We help landscaping contractors build reliable systems so the work gets done right — without you having to be everywhere at once.</p>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-card reveal">
+        <div class="approach-num">01</div>
+        <h3 class="approach-title">Crew &amp; Route Optimization</h3>
+        <p class="approach-body">We map how your crews are dispatched, routed, and tracked today. Then we build a system that gets the right crew to the right site every time.</p>
+        <a href="#" onclick="openModal(event)" class="approach-link">Learn More <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="approach-card reveal reveal-d1">
+        <div class="approach-num">02</div>
+        <h3 class="approach-title">Standard Operating Procedures</h3>
+        <p class="approach-body">We create repeatable SOPs for site visits, maintenance rounds, and seasonal handoffs — so quality stays consistent whether you're on-site or not.</p>
+        <a href="#" onclick="openModal(event)" class="approach-link">Learn More <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+      <div class="approach-card reveal reveal-d2">
+        <div class="approach-num">03</div>
+        <h3 class="approach-title">Digital Workflow Automation</h3>
+        <p class="approach-body">Recurring jobs, crew alerts, and invoicing get automated. Less time on the phone, more time running the business.</p>
+        <a href="#" onclick="openModal(event)" class="approach-link">Learn More <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8M8 4l3 3-3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN -->
+<section class="section section-bordered">
+  <div class="pain-grid wrap">
+    <div>
+      <div class="section-tag reveal">The Problem</div>
+      <h2 class="section-title reveal reveal-d1">Sound familiar?</h2>
+      <p class="section-sub reveal reveal-d2">Most landscaping contractors run their whole operation out of texts, memory, and a spreadsheet nobody keeps updated. It works&mdash;until a crew shows up to the wrong site.</p>
+    </div>
+    <ul class="pain-list">
+      <li class="pain-item reveal">
+        <div class="pain-x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <p>Your crews are scheduled in a group text and someone always ends up at the wrong property</p>
+      </li>
+      <li class="pain-item reveal reveal-d1">
+        <div class="pain-x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <p>You find out a site was skipped when the client calls to complain, not from your own system</p>
+      </li>
+      <li class="pain-item reveal reveal-d2">
+        <div class="pain-x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <p>Seasonal planning means updating a spreadsheet you'll forget to check in February</p>
+      </li>
+      <li class="pain-item reveal reveal-d3">
+        <div class="pain-x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <p>Invoicing recurring contracts takes half a day every month and you still miss some</p>
+      </li>
+      <li class="pain-item reveal reveal-d4">
+        <div class="pain-x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <p>You're juggling crews, equipment, and jobs out of your head instead of a system</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section class="section section-alt">
+  <div class="wrap">
+    <div style="max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1fr;gap:56px;align-items:center;">
+      <div class="pain-grid" style="gap:56px;">
+        <div>
+          <div class="section-tag reveal">The Solution</div>
+          <h2 class="section-title reveal reveal-d1">A system built<br/>for how landscapers work.</h2>
+          <p class="section-sub reveal reveal-d2" style="margin-top:12px;">GroundFlows builds workflow systems specifically for landscaping and grounds contractors&mdash;not generic project management software that takes six months to learn. We do the setup, configuration, and training.</p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card reveal"><div class="stat-num">2&ndash;6<span>wk</span></div><div class="stat-label">From discovery call to live system</div></div>
+          <div class="stat-card reveal reveal-d1"><div class="stat-num">3<span>&times;</span></div><div class="stat-label">Packages sized for your stage of growth</div></div>
+          <div class="stat-card reveal reveal-d2"><div class="stat-num">$0</div><div class="stat-label">Cost for your first discovery call</div></div>
+          <div class="stat-card reveal reveal-d3"><div class="stat-num">100<span>%</span></div><div class="stat-label">Yours — you own everything we build</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section section-bordered" id="how">
+  <div class="wrap">
+    <div class="steps-header">
+      <div class="section-tag reveal">The Process</div>
+      <h2 class="section-title reveal reveal-d1">Simple process. Predictable results.</h2>
+    </div>
+    <div class="steps-grid">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div class="step-badge">Free &middot; 30 min</div>
+        <div class="step-title">Discovery Call</div>
+        <p>We learn how your operation runs today and exactly where the friction is.</p>
+      </div>
+      <div class="step reveal reveal-d1">
+        <div class="step-num">02</div>
+        <div class="step-badge">Included</div>
+        <div class="step-title">Workflow Audit</div>
+        <p>We map your current process and identify what needs to change. Written report in 48 hours.</p>
+      </div>
+      <div class="step reveal reveal-d2">
+        <div class="step-num">03</div>
+        <div class="step-badge">2&ndash;5 weeks</div>
+        <div class="step-title">Build &amp; Configure</div>
+        <p>We set up your crew and job management system&mdash;boards, automations, and dashboards&mdash;built around how you work.</p>
+      </div>
+      <div class="step reveal reveal-d3">
+        <div class="step-num">04</div>
+        <div class="step-badge">Live walkthrough</div>
+        <div class="step-title">Train Your Team</div>
+        <p>Live session with your crew leads and office staff. Most teams are running independently after one session.</p>
+      </div>
+      <div class="step reveal reveal-d4">
+        <div class="step-num">05</div>
+        <div class="step-badge">30&ndash;90 days</div>
+        <div class="step-title">You're Live</div>
+        <p>Support window included with every package to make sure it sticks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PACKAGES -->
+<section class="section section-alt" id="packages">
+  <div class="wrap">
+    <div style="max-width:var(--max);margin:0 auto;">
+      <div class="section-tag reveal">Pricing</div>
+      <h2 class="section-title reveal reveal-d1">Three ways to work with us.</h2>
+      <p class="section-sub reveal reveal-d2" style="margin-top:12px;">Fixed-scope engagements built around where your business is today. Book a call and we'll tell you exactly what you need.</p>
+    </div>
+    <div class="packages-grid">
+      <div class="pkg-card reveal">
+        <div class="pkg-tier">Package 01</div>
+        <div class="pkg-name">Get Organized</div>
+        <div class="pkg-timeline">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 4v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          2&ndash;3 weeks to live
+        </div>
+        <div class="pkg-divider"></div>
+        <p class="pkg-best">Best for: contractors with no current system, scheduling by text and memory</p>
+        <ul class="pkg-features">
+          <li>Workflow audit + written process map</li>
+          <li>Job site tracker board</li>
+          <li>Crew scheduling board</li>
+          <li>1 training session (1 hr)</li>
+          <li>30-day support window</li>
+        </ul>
+        <a href="#" onclick="openModal(event)" class="pkg-btn pkg-btn-outline">Get the Free Guide</a>
+      </div>
+
+      <div class="pkg-card featured reveal reveal-d1">
+        <div class="pkg-popular">Most Popular</div>
+        <div class="pkg-tier">Package 02</div>
+        <div class="pkg-name">Get Optimized</div>
+        <div class="pkg-timeline">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 4v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          4&ndash;6 weeks to live
+        </div>
+        <div class="pkg-divider"></div>
+        <p class="pkg-best">Best for: contractors managing 10+ active properties or crews</p>
+        <ul class="pkg-features">
+          <li>Everything in Get Organized</li>
+          <li>Recurring maintenance scheduler</li>
+          <li>Equipment &amp; vehicle tracking</li>
+          <li>Automations: alerts, reminders, weekly digest</li>
+          <li>2 training sessions</li>
+          <li>60-day support window</li>
+        </ul>
+        <a href="#" onclick="openModal(event)" class="pkg-btn pkg-btn-primary">Get the Free Guide</a>
+      </div>
+
+      <div class="pkg-card reveal reveal-d2">
+        <div class="pkg-tier">Package 03</div>
+        <div class="pkg-name">Get Scaled</div>
+        <div class="pkg-timeline">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 4v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Timeline varies
+        </div>
+        <div class="pkg-divider"></div>
+        <p class="pkg-best">Best for: multi-crew operations with unique workflows or integrations</p>
+        <ul class="pkg-features">
+          <li>Full discovery engagement (4&ndash;8 hrs)</li>
+          <li>Custom workflow system build</li>
+          <li>QuickBooks / CRM integrations</li>
+          <li>Full team training</li>
+          <li>90-day hypercare support</li>
+        </ul>
+        <a href="#" onclick="openModal(event)" class="pkg-btn pkg-btn-outline">Get the Free Guide</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRADES -->
+<section class="section section-bordered">
+  <div class="wrap">
+    <div style="max-width:var(--max);margin:0 auto;">
+      <div class="section-tag reveal">Who We Serve</div>
+      <h2 class="section-title reveal reveal-d1">Built for your niche,<br/>not everyone's niche.</h2>
+    </div>
+    <div class="trades-grid">
+      <div class="trade-card reveal" onclick="toggleTrade(this)">
+        <div class="trade-header">
+          <div class="trade-name">Lawn Maintenance</div>
+          <div class="trade-chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="trade-body">
+          <div class="trade-sub">Maintenance crews managing recurring mowing, edging, and cleanup schedules across 20+ accounts</div>
+          <div class="trade-tags">
+            <span class="tag">Route scheduling</span>
+            <span class="tag">Recurring jobs</span>
+            <span class="tag">Crew dispatch</span>
+            <span class="tag">Quality checklists</span>
+            <span class="tag">Invoice alerts</span>
+          </div>
+        </div>
+      </div>
+      <div class="trade-card reveal reveal-d1" onclick="toggleTrade(this)">
+        <div class="trade-header">
+          <div class="trade-name">Landscape Installation</div>
+          <div class="trade-chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="trade-body">
+          <div class="trade-sub">Install crews coordinating plant sourcing, dig schedules, and client walkthroughs on multiple projects</div>
+          <div class="trade-tags">
+            <span class="tag">Project tracking</span>
+            <span class="tag">Material orders</span>
+            <span class="tag">Crew scheduling</span>
+            <span class="tag">Client walkthroughs</span>
+            <span class="tag">Job phases</span>
+          </div>
+        </div>
+      </div>
+      <div class="trade-card reveal reveal-d2" onclick="toggleTrade(this)">
+        <div class="trade-header">
+          <div class="trade-name">Hardscaping</div>
+          <div class="trade-chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="trade-body">
+          <div class="trade-sub">Hardscape contractors juggling design approvals, material lead times, and multi-phase builds</div>
+          <div class="trade-tags">
+            <span class="tag">Design approvals</span>
+            <span class="tag">Material tracking</span>
+            <span class="tag">Phase management</span>
+            <span class="tag">Crew scheduling</span>
+            <span class="tag">Invoice alerts</span>
+          </div>
+        </div>
+      </div>
+      <div class="trade-card reveal reveal-d3" onclick="toggleTrade(this)">
+        <div class="trade-header">
+          <div class="trade-name">Irrigation</div>
+          <div class="trade-chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="trade-body">
+          <div class="trade-sub">Irrigation contractors tracking system installs, seasonal startups, and repair tickets across dozens of sites</div>
+          <div class="trade-tags">
+            <span class="tag">Install tracking</span>
+            <span class="tag">Seasonal schedules</span>
+            <span class="tag">Repair tickets</span>
+            <span class="tag">Permit status</span>
+            <span class="tag">Invoice alerts</span>
+          </div>
+        </div>
+      </div>
+      <div class="trade-card reveal reveal-d4" onclick="toggleTrade(this)">
+        <div class="trade-header">
+          <div class="trade-name">Snow &amp; Ice</div>
+          <div class="trade-chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="trade-body">
+          <div class="trade-sub">Snow contractors managing on-call crews, route coverage, and salt inventory through the season</div>
+          <div class="trade-tags">
+            <span class="tag">Route management</span>
+            <span class="tag">On-call dispatch</span>
+            <span class="tag">Salt inventory</span>
+            <span class="tag">Event logging</span>
+            <span class="tag">Client billing</span>
+          </div>
+        </div>
+      </div>
+      <div class="trade-card reveal reveal-d5" onclick="toggleTrade(this)">
+        <div class="trade-header">
+          <div class="trade-name">Tree Services</div>
+          <div class="trade-chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="trade-body">
+          <div class="trade-sub">Tree crews coordinating site assessments, equipment booking, and debris removal across jobs</div>
+          <div class="trade-tags">
+            <span class="tag">Site assessments</span>
+            <span class="tag">Equipment scheduling</span>
+            <span class="tag">Crew dispatch</span>
+            <span class="tag">Hazard logging</span>
+            <span class="tag">Job closeout</span>
+          </div>
+        </div>
+      </div>
+      <div class="trade-card reveal reveal-d5" onclick="toggleTrade(this)">
+        <div class="trade-header">
+          <div class="trade-name">Commercial Grounds</div>
+          <div class="trade-chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="trade-body">
+          <div class="trade-sub">Commercial grounds teams managing HOA, property management, and multi-site maintenance contracts</div>
+          <div class="trade-tags">
+            <span class="tag">Contract tracking</span>
+            <span class="tag">Site schedules</span>
+            <span class="tag">Compliance docs</span>
+            <span class="tag">Crew allocation</span>
+            <span class="tag">Monthly billing</span>
+          </div>
+        </div>
+      </div>
+      <div class="trade-card reveal reveal-d5" onclick="toggleTrade(this)">
+        <div class="trade-header">
+          <div class="trade-name">Residential Design/Build</div>
+          <div class="trade-chevron"><svg width="12" height="8" viewBox="0 0 12 8" fill="none"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </div>
+        <div class="trade-body">
+          <div class="trade-sub">Design/build contractors managing client approvals, subcontractors, and project milestones on high-end installs</div>
+          <div class="trade-tags">
+            <span class="tag">Client approvals</span>
+            <span class="tag">Subcontractor coordination</span>
+            <span class="tag">Milestone tracking</span>
+            <span class="tag">Budget tracking</span>
+            <span class="tag">Final walkthroughs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top:28px;font-size:14px;color:var(--text-light);">Don't see your specialty? <a href="mailto:hello@groundflows.com" style="color:var(--green);text-decoration:none;">Get in touch</a> — we're expanding quickly.</p>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-alt" id="faq">
+  <div class="faq-wrap wrap">
+    <div class="faq-header">
+      <div class="section-tag reveal">FAQ</div>
+      <h2 class="section-title reveal reveal-d1">Common questions.</h2>
+    </div>
+    <div>
+      <div class="faq-item">
+        <button class="faq-q">What platform do you use?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+        <div class="faq-a"><p>We recommend and build on platforms purpose-fit for your operation. We'll identify the right tool during your workflow audit and set everything up together&mdash;you don't need an existing account.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What if my workflow doesn't fit a template?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+        <div class="faq-a"><p>That's what the Custom package is for. We start with a $500 discovery session to map your specific needs before quoting the build. The $500 is credited toward the full engagement if you proceed.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How long until we're live?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+        <div class="faq-a"><p>Get Organized: 2&ndash;3 weeks. Get Optimized: 4&ndash;6 weeks. Get Scaled depends on scope. Timeline starts after the workflow audit, typically scheduled within a week of signing.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What happens after the support window ends?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+        <div class="faq-a"><p>You own everything we built. If you want ongoing help as your business grows, we offer retainer arrangements. We'll discuss that at your 60-day check-in.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What do you need from us to get started?<div class="faq-icon"><svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 2v8M2 6h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></div></button>
+        <div class="faq-a"><p>A 2&ndash;4 hour workflow audit session with the owner or ops manager, and one or two people available for training. That's it.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner wrap">
+    <div class="section-tag reveal" style="justify-content:center;display:flex;">Get Started</div>
+    <h2 class="cta-title reveal reveal-d1">Ready to get your<br/><span>time back?</span></h2>
+    <p class="cta-sub reveal reveal-d2">Book a free 30-minute discovery call. No pitch, no pressure. We'll tell you exactly what you need&mdash;and whether we're the right fit.</p>
+    <div class="reveal reveal-d3">
+      <a href="#" onclick="openModal(event)" class="btn btn-primary">Get the Free Guide &rarr;</a>
+    </div>
+    <p class="cta-note reveal reveal-d4">Or email us: <a href="mailto:hello@groundflows.com">hello@groundflows.com</a></p>
+  </div>
+</section>
+
+<!-- DRAWER -->
+<div class="modal-overlay" id="bookingModal">
+  <div class="drawer-backdrop" onclick="closeModal()"></div>
+  <div class="modal">
+    <div class="drawer-right-header">
+      <div class="drawer-right-header-left">
+        <span>Free Resource</span>
+        <strong>Get the GroundFlows Guide</strong>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">
+        <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 1l9 9M10 1L1 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div style="overflow:hidden; width:100%; height:calc(100vh - 73px);">
+        <iframe src="https://forms.monday.com/forms/embed/6278d96e8935c3ef40f02e2a26b539e8?r=use1" style="border:0; display:block; width:154%; height:154%; transform:scale(0.65); transform-origin:top left;"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <a href="/" class="footer-logo">Ground<span>Flows</span></a>
+    <ul class="footer-links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#packages">Pricing</a></li>
+      <li><a href="#faq">FAQ</a></li>
+      <li><a href="#" onclick="openModal(event)">Get the Free Guide</a></li>
+    </ul>
+    <div class="footer-right">Serving landscaping &amp; grounds contractors &middot; 2026</div>
+  </div>
+</footer>
+
+<script>
+  function openModal(e) {
+    e.preventDefault();
+    document.getElementById('bookingModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('bookingModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+  reveals.forEach(el => obs.observe(el));
+
+  function toggleTrade(card) {
+    const isOpen = card.classList.contains('open');
+    card.classList.toggle('open', !isOpen);
+  }
+
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
