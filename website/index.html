@@ -145,25 +145,28 @@
     .section-sub { font-size: 17px; color: var(--text-secondary); line-height: 1.65; max-width: 520px; }
 
     /* PAIN */
-    .pain-grid {
+    .pain-intro { max-width: var(--max); margin: 0 auto 48px; }
+    .pain-cards {
       display: grid; grid-template-columns: 1fr;
-      gap: 64px; max-width: var(--max); margin: 0 auto;
+      gap: 16px; max-width: var(--max); margin: 0 auto;
     }
-    @media (min-width: 900px) { .pain-grid { grid-template-columns: 1fr 1fr; align-items: start; } }
-    .pain-list { list-style: none; display: flex; flex-direction: column; margin-top: 8px; }
-    .pain-item {
-      display: flex; align-items: flex-start; gap: 14px;
-      padding: 18px 0; border-bottom: 1px solid var(--border);
-      transition: background 0.2s;
+    @media (min-width: 640px) { .pain-cards { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 1024px) { .pain-cards { grid-template-columns: repeat(3, 1fr); } }
+    .pain-card {
+      background: var(--bg-white); border: 1px solid var(--border);
+      border-radius: 12px; padding: 28px 28px 24px;
+      display: flex; flex-direction: column; gap: 8px;
+      transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
     }
-    .pain-item:first-child { border-top: 1px solid var(--border); }
-    .pain-x {
-      flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%;
+    .pain-card:hover { border-color: #D92D20; box-shadow: 0 8px 24px rgba(217,45,32,0.06); }
+    .pain-card-icon {
+      width: 28px; height: 28px; border-radius: 50%;
       background: #FEE8E8; display: flex; align-items: center; justify-content: center;
-      margin-top: 2px;
+      flex-shrink: 0; margin-bottom: 4px;
     }
-    .pain-x svg { color: #D92D20; }
-    .pain-item p { font-size: 15px; color: var(--text-secondary); line-height: 1.55; }
+    .pain-card-icon svg { color: #D92D20; }
+    .pain-card-title { font-size: 15px; font-weight: 700; color: var(--text-primary); line-height: 1.3; }
+    .pain-card-body { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
 
     /* STATS */
     .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
@@ -391,12 +394,12 @@
     .term-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
 
     /* CTA */
-    .cta-section { background: var(--bg-sage); padding: 120px var(--gutter) 140px; text-align: center; border-top: 1px solid rgba(45,134,83,0.15); }
-    .cta-inner { max-width: 580px; margin: 0 auto; }
-    .cta-title { font-size: clamp(32px, 5vw, 48px); font-weight: 700; color: var(--text-primary); line-height: 1.15; margin-bottom: 20px; letter-spacing: -0.5px; }
+    .cta-section { background: var(--bg-sage); padding: 64px var(--gutter); text-align: center; border-top: 1px solid rgba(45,134,83,0.15); }
+    .cta-inner { max-width: 480px; margin: 0 auto; }
+    .cta-title { font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: var(--text-primary); line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.3px; }
     .cta-title span { color: var(--green); }
-    .cta-sub { font-size: 18px; color: var(--text-secondary); margin-bottom: 40px; line-height: 1.6; }
-    .cta-note { margin-top: 20px; font-size: 13px; color: var(--text-light); }
+    .cta-sub { font-size: 15px; color: var(--text-secondary); margin-bottom: 28px; line-height: 1.6; }
+    .cta-note { margin-top: 16px; font-size: 13px; color: var(--text-light); }
     .cta-note a { color: var(--green); text-decoration: none; }
 
     /* FOOTER */
@@ -421,13 +424,10 @@
     <a href="/" class="logo">Ground<span>Flows</span></a>
     <ul class="nav-links">
       <li><a href="#approach">Our Approach</a></li>
-      <li><a href="#how">How it works</a></li>
-      <li><a href="#packages">Pricing</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
     <div class="nav-cta">
-      <a href="mailto:hello@groundflows.com" class="nav-email">hello@groundflows.com</a>
-      <a href="#" onclick="openModal(event)" class="btn btn-primary btn-nav">Get the Free Guide</a>
+<a href="#" onclick="openModal(event)" class="btn btn-primary btn-nav">Get the Free Guide</a>
     </div>
   </div>
 </nav>
@@ -439,7 +439,6 @@
   <p class="hero-sub">GroundFlows gets your scheduling, job tracking, and crew management out of texts and spreadsheets into a system that actually works. Fixed price. Live in 2&ndash;6&nbsp;weeks.</p>
   <div class="hero-ctas">
     <a href="#" onclick="openModal(event)" class="btn btn-primary">Get the Free Guide</a>
-    <a href="#packages" class="btn btn-secondary">See Packages</a>
   </div>
   <p class="hero-note">No pitch. No pressure. We'll tell you what you need before you commit.</p>
 </section>
@@ -488,34 +487,39 @@
 
 <!-- PAIN -->
 <section class="section section-bordered">
-  <div class="pain-grid wrap">
-    <div>
+  <div class="wrap">
+    <div class="pain-intro">
       <div class="section-tag reveal">The Problem</div>
       <h2 class="section-title reveal reveal-d1">Sound familiar?</h2>
       <p class="section-sub reveal reveal-d2">Most landscaping contractors run their whole operation out of texts, memory, and a spreadsheet nobody keeps updated. It works&mdash;until a crew shows up to the wrong site.</p>
     </div>
-    <ul class="pain-list">
-      <li class="pain-item reveal">
-        <div class="pain-x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-        <p>Your crews are scheduled in a group text and someone always ends up at the wrong property</p>
-      </li>
-      <li class="pain-item reveal reveal-d1">
-        <div class="pain-x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-        <p>You find out a site was skipped when the client calls to complain, not from your own system</p>
-      </li>
-      <li class="pain-item reveal reveal-d2">
-        <div class="pain-x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-        <p>Seasonal planning means updating a spreadsheet you'll forget to check in February</p>
-      </li>
-      <li class="pain-item reveal reveal-d3">
-        <div class="pain-x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-        <p>Invoicing recurring contracts takes half a day every month and you still miss some</p>
-      </li>
-      <li class="pain-item reveal reveal-d4">
-        <div class="pain-x"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
-        <p>You're juggling crews, equipment, and jobs out of your head instead of a system</p>
-      </li>
-    </ul>
+    <div class="pain-cards">
+      <div class="pain-card reveal">
+        <div class="pain-card-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <div class="pain-card-title">Crews at the wrong property</div>
+        <div class="pain-card-body">Scheduling happens in a group text and someone always ends up at the wrong site.</div>
+      </div>
+      <div class="pain-card reveal reveal-d1">
+        <div class="pain-card-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <div class="pain-card-title">Skipped sites you never knew about</div>
+        <div class="pain-card-body">You find out when the client calls to complain — not from your own system.</div>
+      </div>
+      <div class="pain-card reveal reveal-d2">
+        <div class="pain-card-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <div class="pain-card-title">Seasonal planning falls apart</div>
+        <div class="pain-card-body">A spreadsheet you update once in the fall and forget to check when it matters.</div>
+      </div>
+      <div class="pain-card reveal reveal-d3">
+        <div class="pain-card-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <div class="pain-card-title">Invoicing eats half your day</div>
+        <div class="pain-card-body">Recurring contracts take hours to invoice every month — and you still miss some.</div>
+      </div>
+      <div class="pain-card reveal reveal-d4">
+        <div class="pain-card-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div>
+        <div class="pain-card-title">The whole operation lives in your head</div>
+        <div class="pain-card-body">Crews, equipment, jobs — all of it tracked mentally instead of in a system that works without you.</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -540,118 +544,7 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="section section-bordered" id="how">
-  <div class="wrap">
-    <div class="steps-header">
-      <div class="section-tag reveal">The Process</div>
-      <h2 class="section-title reveal reveal-d1">Simple process. Predictable results.</h2>
-    </div>
-    <div class="steps-grid">
-      <div class="step reveal">
-        <div class="step-num">01</div>
-        <div class="step-badge">Free &middot; 30 min</div>
-        <div class="step-title">Discovery Call</div>
-        <p>We learn how your operation runs today and exactly where the friction is.</p>
-      </div>
-      <div class="step reveal reveal-d1">
-        <div class="step-num">02</div>
-        <div class="step-badge">Included</div>
-        <div class="step-title">Workflow Audit</div>
-        <p>We map your current process and identify what needs to change. Written report in 48 hours.</p>
-      </div>
-      <div class="step reveal reveal-d2">
-        <div class="step-num">03</div>
-        <div class="step-badge">2&ndash;5 weeks</div>
-        <div class="step-title">Build &amp; Configure</div>
-        <p>We set up your crew and job management system&mdash;boards, automations, and dashboards&mdash;built around how you work.</p>
-      </div>
-      <div class="step reveal reveal-d3">
-        <div class="step-num">04</div>
-        <div class="step-badge">Live walkthrough</div>
-        <div class="step-title">Train Your Team</div>
-        <p>Live session with your crew leads and office staff. Most teams are running independently after one session.</p>
-      </div>
-      <div class="step reveal reveal-d4">
-        <div class="step-num">05</div>
-        <div class="step-badge">30&ndash;90 days</div>
-        <div class="step-title">You're Live</div>
-        <p>Support window included with every package to make sure it sticks.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<!-- PACKAGES -->
-<section class="section section-alt" id="packages">
-  <div class="wrap">
-    <div style="max-width:var(--max);margin:0 auto;">
-      <div class="section-tag reveal">Pricing</div>
-      <h2 class="section-title reveal reveal-d1">Three ways to work with us.</h2>
-      <p class="section-sub reveal reveal-d2" style="margin-top:12px;">Fixed-scope engagements built around where your business is today. Book a call and we'll tell you exactly what you need.</p>
-    </div>
-    <div class="packages-grid">
-      <div class="pkg-card reveal">
-        <div class="pkg-tier">Package 01</div>
-        <div class="pkg-name">Get Organized</div>
-        <div class="pkg-timeline">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 4v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          2&ndash;3 weeks to live
-        </div>
-        <div class="pkg-divider"></div>
-        <p class="pkg-best">Best for: contractors with no current system, scheduling by text and memory</p>
-        <ul class="pkg-features">
-          <li>Workflow audit + written process map</li>
-          <li>Job site tracker board</li>
-          <li>Crew scheduling board</li>
-          <li>1 training session (1 hr)</li>
-          <li>30-day support window</li>
-        </ul>
-        <a href="#" onclick="openModal(event)" class="pkg-btn pkg-btn-outline">Get the Free Guide</a>
-      </div>
-
-      <div class="pkg-card featured reveal reveal-d1">
-        <div class="pkg-popular">Most Popular</div>
-        <div class="pkg-tier">Package 02</div>
-        <div class="pkg-name">Get Optimized</div>
-        <div class="pkg-timeline">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 4v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          4&ndash;6 weeks to live
-        </div>
-        <div class="pkg-divider"></div>
-        <p class="pkg-best">Best for: contractors managing 10+ active properties or crews</p>
-        <ul class="pkg-features">
-          <li>Everything in Get Organized</li>
-          <li>Recurring maintenance scheduler</li>
-          <li>Equipment &amp; vehicle tracking</li>
-          <li>Automations: alerts, reminders, weekly digest</li>
-          <li>2 training sessions</li>
-          <li>60-day support window</li>
-        </ul>
-        <a href="#" onclick="openModal(event)" class="pkg-btn pkg-btn-primary">Get the Free Guide</a>
-      </div>
-
-      <div class="pkg-card reveal reveal-d2">
-        <div class="pkg-tier">Package 03</div>
-        <div class="pkg-name">Get Scaled</div>
-        <div class="pkg-timeline">
-          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.3"/><path d="M6.5 4v2.5l1.5 1.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
-          Timeline varies
-        </div>
-        <div class="pkg-divider"></div>
-        <p class="pkg-best">Best for: multi-crew operations with unique workflows or integrations</p>
-        <ul class="pkg-features">
-          <li>Full discovery engagement (4&ndash;8 hrs)</li>
-          <li>Custom workflow system build</li>
-          <li>QuickBooks / CRM integrations</li>
-          <li>Full team training</li>
-          <li>90-day hypercare support</li>
-        </ul>
-        <a href="#" onclick="openModal(event)" class="pkg-btn pkg-btn-outline">Get the Free Guide</a>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- TRADES -->
 <section class="section section-bordered">
@@ -826,6 +719,7 @@
   </div>
 </section>
 
+
 <!-- CTA -->
 <section class="cta-section">
   <div class="cta-inner wrap">
@@ -835,7 +729,6 @@
     <div class="reveal reveal-d3">
       <a href="#" onclick="openModal(event)" class="btn btn-primary">Get the Free Guide &rarr;</a>
     </div>
-    <p class="cta-note reveal reveal-d4">Or email us: <a href="mailto:hello@groundflows.com">hello@groundflows.com</a></p>
   </div>
 </section>
 
@@ -854,7 +747,7 @@
     </div>
     <div class="modal-body">
       <div style="overflow:hidden; width:100%; height:calc(100vh - 73px);">
-        <iframe src="https://forms.monday.com/forms/embed/6278d96e8935c3ef40f02e2a26b539e8?r=use1" style="border:0; display:block; width:154%; height:154%; transform:scale(0.65); transform-origin:top left;"></iframe>
+        <iframe src="https://forms.monday.com/forms/embed/3f6316238b71cb6b6b3e1607cb5de9cb?r=use1" style="border:0; display:block; width:154%; height:154%; transform:scale(0.65); transform-origin:top left;"></iframe>
       </div>
     </div>
   </div>
@@ -865,8 +758,6 @@
   <div class="footer-inner">
     <a href="/" class="footer-logo">Ground<span>Flows</span></a>
     <ul class="footer-links">
-      <li><a href="#how">How it works</a></li>
-      <li><a href="#packages">Pricing</a></li>
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#" onclick="openModal(event)">Get the Free Guide</a></li>
     </ul>
