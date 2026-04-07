@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GroundFlows — Less Admin. More Jobs Done.</title>
-  <meta name="description" content="GroundFlows helps landscaping contractors get scheduling, job tracking, and crew management out of texts and spreadsheets. Fixed-price packages. Live in 2–6 weeks." />
+  <title>YardScope — Less Admin. More Jobs Done.</title>
+  <meta name="description" content="YardScope helps landscaping contractors get scheduling, job tracking, and crew management out of texts and spreadsheets. Fixed-price packages. Live in 2–6 weeks." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -16,11 +16,11 @@
       --text-secondary: #555;
       --text-light:     #999;
       --text-mid:       #666;
-      --green:          #2D8653;
-      --green-hover:    #236B42;
+      --orange:         #FF6B35;
+      --orange-hover:    #E55A1F;
       --bg-white:       #ffffff;
-      --bg-sage:        #F0F8F2;
-      --bg-sage-light:  #F7FAF7;
+      --bg-cream:        #FFF4EE;
+      --bg-offwhite:     #FFFAF8;
       --border:         #e5e5e5;
       --font:           'Inter', sans-serif;
       --ease:           cubic-bezier(0.4, 0, 0.2, 1);
@@ -52,10 +52,10 @@
       transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), background 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease);
       white-space: nowrap;
     }
-    .btn-primary { background: var(--green); color: #fff; }
-    .btn-primary:hover { background: var(--green-hover); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(45,134,83,0.28); }
+    .btn-primary { background: var(--orange); color: #fff; }
+    .btn-primary:hover { background: var(--orange-hover); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(255,107,53,0.28); }
     .btn-secondary { background: transparent; color: var(--text-primary); border-color: var(--border); }
-    .btn-secondary:hover { border-color: var(--green); background: var(--bg-sage); color: var(--green); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+    .btn-secondary:hover { border-color: var(--orange); background: var(--bg-cream); color: var(--orange); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
 
     /* NAV */
     nav {
@@ -72,7 +72,7 @@
       font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
       text-transform: uppercase; color: var(--text-primary); text-decoration: none;
     }
-    .logo span { color: var(--green); }
+    .logo span { color: var(--orange); }
     .nav-links { display: none; align-items: center; gap: 32px; list-style: none; }
     @media (min-width: 768px) { .nav-links { display: flex; } }
     .nav-links a { font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; transition: color 0.3s var(--ease); }
@@ -99,20 +99,20 @@
     }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      font-size: 13px; font-weight: 600; color: var(--green);
-      background: var(--bg-sage); border: 1px solid rgba(45,134,83,0.2);
+      font-size: 13px; font-weight: 600; color: var(--orange);
+      background: var(--bg-cream); border: 1px solid rgba(255,107,53,0.2);
       padding: 6px 14px; border-radius: 100px;
       margin-bottom: 32px;
       opacity: 0; animation: fadeUp 0.5s var(--ease) 0.1s forwards;
     }
-    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
     .hero h1 {
       font-size: clamp(40px, 6.5vw, 64px);
       font-weight: 700; letter-spacing: -0.5px; line-height: 1.1;
       color: var(--text-primary); max-width: 780px; margin: 0 auto 24px;
       opacity: 0; animation: fadeUp 0.6s var(--ease) 0.2s forwards;
     }
-    .hero h1 span { color: var(--green); }
+    .hero h1 span { color: var(--orange); }
     .hero-sub {
       font-size: 20px; font-weight: 400; color: var(--text-secondary);
       max-width: 580px; margin: 0 auto 48px; line-height: 1.6;
@@ -132,13 +132,13 @@
 
     /* SECTION BASE */
     .section { padding: 120px var(--gutter) 140px; }
-    .section-alt { background: var(--bg-sage-light); }
-    .section-sage { background: var(--bg-sage); }
+    .section-alt { background: var(--bg-offwhite); }
+    .section-sage { background: var(--bg-cream); }
     .section-bordered { border-top: 1px solid var(--border); }
 
     .section-tag {
       font-size: 13px; font-weight: 700; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--green);
+      text-transform: uppercase; color: var(--orange);
       margin-bottom: 12px;
     }
     .section-title { font-size: 32px; font-weight: 700; color: var(--text-primary); line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.3px; }
@@ -175,9 +175,9 @@
       border-radius: 10px; padding: 28px 24px;
       transition: border-color 0.3s var(--ease), transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
     }
-    .stat-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(45,134,83,0.1); }
+    .stat-card:hover { border-color: var(--orange); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(255,107,53,0.1); }
     .stat-num { font-size: 42px; font-weight: 700; color: var(--text-primary); line-height: 1; margin-bottom: 6px; letter-spacing: -1px; }
-    .stat-num span { color: var(--green); }
+    .stat-num span { color: var(--orange); }
     .stat-label { font-size: 13px; color: var(--text-secondary); line-height: 1.4; }
 
     /* HOW IT WORKS */
@@ -202,11 +202,11 @@
       margin-bottom: 20px; position: relative; z-index: 1;
       transition: all 0.3s var(--ease);
     }
-    .step:hover .step-num { border-color: var(--green); color: var(--green); background: var(--bg-sage); }
+    .step:hover .step-num { border-color: var(--orange); color: var(--orange); background: var(--bg-cream); }
     .step-badge {
       display: inline-block; font-size: 11px; font-weight: 600;
       letter-spacing: 0.06em; text-transform: uppercase;
-      color: var(--green); background: var(--bg-sage);
+      color: var(--orange); background: var(--bg-cream);
       padding: 3px 8px; border-radius: 4px; margin-bottom: 10px;
     }
     .step-title { font-size: 16px; font-weight: 600; color: var(--text-primary); margin-bottom: 8px; }
@@ -224,12 +224,12 @@
     }
     .pkg-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); }
     .pkg-card.featured {
-      border-color: var(--green);
-      box-shadow: 0 0 0 1px var(--green), 0 16px 40px rgba(45,134,83,0.1);
+      border-color: var(--orange);
+      box-shadow: 0 0 0 1px var(--orange), 0 16px 40px rgba(255,107,53,0.1);
     }
     .pkg-popular {
       position: absolute; top: -13px; left: 50%; transform: translateX(-50%);
-      background: var(--green); color: #fff; font-size: 11px; font-weight: 700;
+      background: var(--orange); color: #fff; font-size: 11px; font-weight: 700;
       letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 14px;
       border-radius: 100px; white-space: nowrap;
     }
@@ -237,7 +237,7 @@
     .pkg-name { font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; }
     .pkg-timeline {
       display: inline-flex; align-items: center; gap: 5px;
-      font-size: 13px; font-weight: 600; color: var(--green); margin-bottom: 24px;
+      font-size: 13px; font-weight: 600; color: var(--orange); margin-bottom: 24px;
     }
     .pkg-divider { height: 1px; background: var(--border); margin-bottom: 24px; }
     .pkg-best { font-size: 13px; color: var(--text-secondary); font-style: italic; margin-bottom: 20px; }
@@ -248,14 +248,14 @@
     }
     .pkg-features li::before {
       content: ''; flex-shrink: 0; width: 16px; height: 16px; margin-top: 2px;
-      background: var(--bg-sage); border-radius: 50%; border: 1.5px solid rgba(45,134,83,0.4);
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='%232D8653' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background: var(--bg-cream); border-radius: 50%; border: 1.5px solid rgba(255,107,53,0.4);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8l3.5 3.5L13 5' stroke='%23FF6B35' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     }
     .pkg-btn { display: block; width: 100%; text-align: center; padding: 14px; border-radius: 6px; font-size: 15px; font-weight: 700; text-decoration: none; transition: all 0.3s var(--ease); cursor: pointer; }
-    .pkg-btn-primary { background: var(--green); color: #fff; border: none; }
-    .pkg-btn-primary:hover { background: var(--green-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(45,134,83,0.25); }
+    .pkg-btn-primary { background: var(--orange); color: #fff; border: none; }
+    .pkg-btn-primary:hover { background: var(--orange-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(255,107,53,0.25); }
     .pkg-btn-outline { border: 1.5px solid var(--border); color: var(--text-primary); background: transparent; }
-    .pkg-btn-outline:hover { border-color: var(--green); color: var(--green); background: var(--bg-sage); transform: translateY(-2px); }
+    .pkg-btn-outline:hover { border-color: var(--orange); color: var(--orange); background: var(--bg-cream); transform: translateY(-2px); }
 
     /* TRADES */
     .trades-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; max-width: var(--max); margin: 48px auto 0; }
@@ -265,8 +265,8 @@
       transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
       cursor: pointer;
     }
-    .trade-card:hover { border-color: var(--green); box-shadow: 0 12px 32px rgba(45,134,83,0.08); }
-    .trade-card.open { border-color: var(--green); box-shadow: 0 12px 32px rgba(45,134,83,0.08); }
+    .trade-card:hover { border-color: var(--orange); box-shadow: 0 12px 32px rgba(255,107,53,0.08); }
+    .trade-card.open { border-color: var(--orange); box-shadow: 0 12px 32px rgba(255,107,53,0.08); }
     .trade-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 28px 28px; gap: 12px;
@@ -277,7 +277,7 @@
       justify-content: center; color: var(--text-light);
       transition: all 0.3s var(--ease);
     }
-    .trade-card.open .trade-chevron { border-color: var(--green); color: var(--green); background: var(--bg-sage); transform: rotate(180deg); }
+    .trade-card.open .trade-chevron { border-color: var(--orange); color: var(--orange); background: var(--bg-cream); transform: rotate(180deg); }
     .trade-body {
       max-height: 0; overflow: hidden;
       transition: max-height 0.35s var(--ease), padding 0.35s var(--ease);
@@ -289,7 +289,7 @@
     .trade-tags { display: flex; flex-wrap: wrap; gap: 8px; }
     .tag {
       font-size: 12px; font-weight: 500; color: var(--text-secondary);
-      background: var(--bg-sage-light); border: 1px solid var(--border);
+      background: var(--bg-offwhite); border: 1px solid var(--border);
       padding: 4px 10px; border-radius: 100px;
     }
 
@@ -304,13 +304,13 @@
       text-align: left; font-family: var(--font); font-size: 16px; font-weight: 600;
       color: var(--text-primary); transition: color 0.3s var(--ease);
     }
-    .faq-q:hover { color: var(--green); }
+    .faq-q:hover { color: var(--orange); }
     .faq-icon {
       flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%;
       border: 1.5px solid var(--border); display: flex; align-items: center;
       justify-content: center; color: var(--text-light); transition: all 0.3s var(--ease);
     }
-    .faq-item.open .faq-icon { border-color: var(--green); color: var(--green); background: var(--bg-sage); transform: rotate(45deg); }
+    .faq-item.open .faq-icon { border-color: var(--orange); color: var(--orange); background: var(--bg-cream); transform: rotate(45deg); }
     .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.35s var(--ease), padding 0.35s var(--ease); }
     .faq-item.open .faq-a { max-height: 300px; padding-bottom: 20px; }
     .faq-a p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
@@ -329,17 +329,17 @@
       display: flex; flex-direction: column;
       transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease), border-color 0.3s var(--ease);
     }
-    .approach-card:hover { transform: translateY(-3px); border-color: var(--green); box-shadow: 0 12px 32px rgba(45,134,83,0.08); }
+    .approach-card:hover { transform: translateY(-3px); border-color: var(--orange); box-shadow: 0 12px 32px rgba(255,107,53,0.08); }
     .approach-num {
       font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
-      text-transform: uppercase; color: var(--green);
+      text-transform: uppercase; color: var(--orange);
       margin-bottom: 16px;
     }
     .approach-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; line-height: 1.3; }
     .approach-body { font-size: 15px; color: var(--text-secondary); line-height: 1.65; flex: 1; margin-bottom: 28px; }
     .approach-link {
       display: inline-flex; align-items: center; gap: 6px;
-      font-size: 14px; font-weight: 700; color: var(--green);
+      font-size: 14px; font-weight: 700; color: var(--orange);
       text-decoration: none; transition: gap 0.25s var(--ease);
     }
     .approach-link:hover { gap: 10px; }
@@ -367,10 +367,10 @@
     .drawer-right-header {
       display: flex; align-items: center; justify-content: space-between;
       padding: 18px 24px; flex-shrink: 0;
-      background: var(--bg-sage); border-bottom: 1px solid rgba(45,134,83,0.12);
+      background: var(--bg-cream); border-bottom: 1px solid rgba(255,107,53,0.12);
     }
     .drawer-right-header-left { display: flex; flex-direction: column; gap: 2px; }
-    .drawer-right-header span { font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; }
+    .drawer-right-header span { font-size: 11px; font-weight: 700; color: var(--orange); letter-spacing: 0.1em; text-transform: uppercase; }
     .drawer-right-header strong { font-size: 16px; font-weight: 700; color: var(--text-primary); }
     .modal-close {
       width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid rgba(0,0,0,0.1);
@@ -382,7 +382,7 @@
 
     /* TERMS STRIP */
     .terms-strip {
-      background: var(--bg-sage-light); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--bg-offwhite); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
       padding: 24px var(--gutter);
     }
     .terms-inner {
@@ -391,22 +391,22 @@
       gap: 32px;
     }
     .term-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--text-secondary); }
-    .term-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+    .term-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); flex-shrink: 0; }
 
     /* CTA */
-    .cta-section { background: var(--bg-sage); padding: 64px var(--gutter); text-align: center; border-top: 1px solid rgba(45,134,83,0.15); }
+    .cta-section { background: var(--bg-cream); padding: 64px var(--gutter); text-align: center; border-top: 1px solid rgba(255,107,53,0.15); }
     .cta-inner { max-width: 480px; margin: 0 auto; }
     .cta-title { font-size: clamp(22px, 3vw, 30px); font-weight: 700; color: var(--text-primary); line-height: 1.2; margin-bottom: 12px; letter-spacing: -0.3px; }
-    .cta-title span { color: var(--green); }
+    .cta-title span { color: var(--orange); }
     .cta-sub { font-size: 15px; color: var(--text-secondary); margin-bottom: 28px; line-height: 1.6; }
     .cta-note { margin-top: 16px; font-size: 13px; color: var(--text-light); }
-    .cta-note a { color: var(--green); text-decoration: none; }
+    .cta-note a { color: var(--orange); text-decoration: none; }
 
     /* FOOTER */
     footer { background: var(--bg-white); border-top: 1px solid var(--border); padding: 36px var(--gutter); }
     .footer-inner { max-width: var(--max); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
     .footer-logo { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-primary); text-decoration: none; }
-    .footer-logo span { color: var(--green); }
+    .footer-logo span { color: var(--orange); }
     .footer-links { display: flex; gap: 28px; list-style: none; }
     .footer-links a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color 0.3s var(--ease); }
     .footer-links a:hover { color: var(--text-primary); }
@@ -421,7 +421,7 @@
 <!-- NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo">Ground<span>Flows</span></a>
+    <a href="/" class="logo">Yard<span>Scope</span></a>
     <ul class="nav-links">
       <li><a href="#approach">Our Approach</a></li>
       <li><a href="#faq">FAQ</a></li>
@@ -436,12 +436,19 @@
 <section class="hero">
   <div class="hero-badge">For landscaping contractors doing $1&ndash;10M where growth is breaking the process.</div>
   <h1>Stop losing crews to<br/><span>bad systems.</span></h1>
-  <p class="hero-sub">GroundFlows gets your scheduling, job tracking, and crew management out of texts and spreadsheets into a system that actually works. Fixed price. Live in 2&ndash;6&nbsp;weeks.</p>
+  <p class="hero-sub">YardScope gets your scheduling, job tracking, and crew management out of texts and spreadsheets into a system that actually works. Fixed price. Live in 2&ndash;6&nbsp;weeks.</p>
   <div class="hero-ctas">
     <a href="#" onclick="openModal(event)" class="btn btn-primary">Get the Free Guide</a>
   </div>
   <p class="hero-note">No pitch. No pressure. We'll tell you what you need before you commit.</p>
 </section>
+
+<!-- VIDEO -->
+<div style="background:var(--bg-white);padding:0 var(--gutter) 64px;display:flex;justify-content:center;">
+  <video id="heroVideo" src="yardscope.mp4" muted playsinline loop
+    style="width:100%;max-width:900px;border-radius:14px;box-shadow:0 16px 64px rgba(0,0,0,0.14);display:block;opacity:0;transition:opacity 0.6s ease;">
+  </video>
+</div>
 
 <!-- TERMS STRIP -->
 <div class="terms-strip">
@@ -531,7 +538,7 @@
         <div>
           <div class="section-tag reveal">The Solution</div>
           <h2 class="section-title reveal reveal-d1">A system built<br/>for how landscapers work.</h2>
-          <p class="section-sub reveal reveal-d2" style="margin-top:12px;">GroundFlows builds workflow systems specifically for landscaping and grounds contractors&mdash;not generic project management software that takes six months to learn. We do the setup, configuration, and training.</p>
+          <p class="section-sub reveal reveal-d2" style="margin-top:12px;">YardScope builds workflow systems specifically for landscaping and grounds contractors&mdash;not generic project management software that takes six months to learn. We do the setup, configuration, and training.</p>
         </div>
         <div class="stat-grid">
           <div class="stat-card reveal"><div class="stat-num">2&ndash;6<span>wk</span></div><div class="stat-label">From discovery call to live system</div></div>
@@ -683,7 +690,7 @@
         </div>
       </div>
     </div>
-    <p style="margin-top:28px;font-size:14px;color:var(--text-light);">Don't see your specialty? <a href="mailto:hello@groundflows.com" style="color:var(--green);text-decoration:none;">Get in touch</a> — we're expanding quickly.</p>
+    <p style="margin-top:28px;font-size:14px;color:var(--text-light);">Don't see your specialty? <a href="mailto:hello@yardscope.com" style="color:var(--orange);text-decoration:none;">Get in touch</a> — we're expanding quickly.</p>
   </div>
 </section>
 
@@ -739,7 +746,7 @@
     <div class="drawer-right-header">
       <div class="drawer-right-header-left">
         <span>Free Resource</span>
-        <strong>Get the GroundFlows Guide</strong>
+        <strong>Get the YardScope Guide</strong>
       </div>
       <button class="modal-close" onclick="closeModal()" aria-label="Close">
         <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 1l9 9M10 1L1 10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
@@ -756,7 +763,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
-    <a href="/" class="footer-logo">Ground<span>Flows</span></a>
+    <a href="/" class="footer-logo">Yard<span>Scope</span></a>
     <ul class="footer-links">
       <li><a href="#faq">FAQ</a></li>
       <li><a href="#" onclick="openModal(event)">Get the Free Guide</a></li>
@@ -790,6 +797,12 @@
     const isOpen = card.classList.contains('open');
     card.classList.toggle('open', !isOpen);
   }
+
+  setTimeout(function() {
+    var v = document.getElementById('heroVideo');
+    v.style.opacity = '1';
+    v.play();
+  }, 2000);
 
   document.querySelectorAll('.faq-q').forEach(btn => {
     btn.addEventListener('click', () => {
